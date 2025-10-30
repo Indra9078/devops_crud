@@ -44,18 +44,23 @@ pipeline {
         }
 
         stage('Run Docker Container') {
-            steps {
-                script {
-                    // Stop and remove any previous container with same name
-                    bat '''
-                    docker stop student-marks-container || echo "No container to stop"
-                    docker rm student-marks-container || echo "No container to remove"
-                    docker run -d -p 3000:80 --name student-marks-container student-marks-app
-                    '''
-                }
-            }
+    steps {
+        script {
+            // Stop & remove old container if it exists
+            bat '''
+            docker stop student-marks-container || echo "No container to stop"
+            docker rm student-marks-container || echo "No container to remove"
+            '''
+
+            // Remove old image (optional cleanup)
+            bat 'docker rmi student-marks-app || echo "No old image to remove"'
+
+            // Run new container
+            bat 'docker run -d -p 3000:80 --name student-marks-container student-marks-app'
         }
     }
+}
+}
 
     post {
         success {
