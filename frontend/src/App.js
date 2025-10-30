@@ -53,7 +53,7 @@ function App() {
 
   return (
     <div className="app">
-      <h1>🎓 Student Score Management System</h1>
+      <h1>🎓 Student Score Management Web</h1>
 
       <div className="toolbar">
         <input
