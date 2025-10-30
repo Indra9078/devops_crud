@@ -24,20 +24,23 @@ pipeline {
             }
         }
 
-        stage('Archive Build') {
+        stage('Copy Build to Local Folder') {
             steps {
-                archiveArtifacts artifacts: 'frontend/build/**', fingerprint: true
-                echo '✅ Build completed and archived successfully!'
+                // Make sure this path exists in your system
+                bat '''
+                if not exist "C:\Users\INDRAJIT\Downloads\jenkins\build" mkdir "C:\Users\INDRAJIT\Downloads\jenkins\build"
+                xcopy /E /I /Y "frontend\\build" "C:\Users\INDRAJIT\Downloads\jenkins\build"
+                '''
             }
         }
     }
 
     post {
         success {
-            echo '🎉 Build finished successfully. You can now deploy manually using Docker.'
+            echo '✅ Build completed and copied to local folder successfully!'
         }
         failure {
-            echo '❌ Build failed. Check logs for errors.'
+            echo '❌ Build failed!'
         }
     }
 }
