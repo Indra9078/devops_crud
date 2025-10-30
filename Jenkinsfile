@@ -28,8 +28,8 @@ pipeline {
             steps {
                 // Make sure this path exists in your system
                 bat '''
-                if not exist "C:\Users\INDRAJIT\Downloads\jenkins\build" mkdir "C:\Users\INDRAJIT\Downloads\jenkins\build"
-                xcopy /E /I /Y "frontend\\build" "C:\Users\INDRAJIT\Downloads\jenkins\build"
+                bat 'if not exist "C:\\Users\\INDRAJIT\\Downloads\\jenkins\\build" mkdir "C:\\Users\\INDRAJIT\\Downloads\\jenkins\\build"'
+                xcopy /E /I /Y "frontend\\build" "C:\\Users\\INDRAJIT\\Downloads\\jenkins\\build"
                 '''
             }
         }
